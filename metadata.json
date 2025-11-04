@@ -1,0 +1,7 @@
+{
+  "name": "Copy of Hairstyle AI",
+  "description": "An application that uses your webcam to capture a photo and Gemini AI to magically try on different hairstyles based on your text prompts.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
