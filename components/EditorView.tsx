@@ -135,7 +135,7 @@ export const EditorView: React.FC<EditorViewProps> = ({
             className="w-full flex items-center justify-center gap-3 px-6 py-3 bg-transparent border-2 border-slate-600 text-slate-300 font-bold text-lg rounded-full shadow-lg hover:bg-slate-700 transition-colors"
         >
           <BackIcon className="w-6 h-6" />
-          Take a New Photo
+          Start Over
         </button>
       </div>
     </div>

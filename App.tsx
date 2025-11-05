@@ -5,11 +5,12 @@ import { WebcamView } from './components/WebcamView';
 import { EditorView } from './components/EditorView';
 import { editImageWithHairstyle } from './services/geminiService';
 import { Footer } from './components/Footer';
+import { LandingView } from './components/LandingView';
 
-type AppState = 'capturing' | 'editing' | 'loading' | 'displaying' | 'error';
+type AppState = 'initial' | 'capturing' | 'editing' | 'loading' | 'displaying' | 'error';
 
 const App: React.FC = () => {
-  const [appState, setAppState] = useState<AppState>('capturing');
+  const [appState, setAppState] = useState<AppState>('initial');
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -18,6 +19,15 @@ const App: React.FC = () => {
     setCapturedImage(imageSrc);
     setAppState('editing');
   };
+
+  const handleStartCapture = () => {
+    setAppState('capturing');
+  };
+
+  const handleImageUpload = (imageSrc: string) => {
+    setCapturedImage(imageSrc);
+    setAppState('editing');
+  }
 
   const handleGenerate = useCallback(async (hairstylePrompt: string) => {
     if (!capturedImage) return;
@@ -41,7 +51,7 @@ const App: React.FC = () => {
   }, [capturedImage]);
 
   const handleReset = () => {
-    setAppState('capturing');
+    setAppState('initial');
     setCapturedImage(null);
     setGeneratedImage(null);
     setErrorMessage('');
@@ -55,6 +65,8 @@ const App: React.FC = () => {
 
   const renderContent = () => {
     switch (appState) {
+      case 'initial':
+        return <LandingView onStartCapture={handleStartCapture} onImageUpload={handleImageUpload} />;
       case 'capturing':
         return <WebcamView onCapture={handleCapture} />;
       case 'editing':
